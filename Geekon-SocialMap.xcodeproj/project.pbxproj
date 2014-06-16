@@ -22,6 +22,7 @@
 		68899C37194F5E4F004188CD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68899C16194F5E4E004188CD /* UIKit.framework */; };
 		68899C3F194F5E4F004188CD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 68899C3D194F5E4F004188CD /* InfoPlist.strings */; };
 		68899C41194F5E4F004188CD /* Geekon_SocialMapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68899C40194F5E4F004188CD /* Geekon_SocialMapTests.m */; };
+		68899C4B194F690D004188CD /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68899C4A194F690D004188CD /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		68899C3C194F5E4F004188CD /* Geekon-SocialMapTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Geekon-SocialMapTests-Info.plist"; sourceTree = "<group>"; };
 		68899C3E194F5E4F004188CD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		68899C40194F5E4F004188CD /* Geekon_SocialMapTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Geekon_SocialMapTests.m; sourceTree = "<group>"; };
+		68899C4A194F690D004188CD /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68899C4B194F690D004188CD /* MapKit.framework in Frameworks */,
 				68899C15194F5E4E004188CD /* CoreGraphics.framework in Frameworks */,
 				68899C17194F5E4E004188CD /* UIKit.framework in Frameworks */,
 				68899C13194F5E4E004188CD /* Foundation.framework in Frameworks */,
@@ -103,6 +106,7 @@
 		68899C11194F5E4E004188CD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				68899C4A194F690D004188CD /* MapKit.framework */,
 				68899C12194F5E4E004188CD /* Foundation.framework */,
 				68899C14194F5E4E004188CD /* CoreGraphics.framework */,
 				68899C16194F5E4E004188CD /* UIKit.framework */,
@@ -470,6 +474,7 @@
 				68899C46194F5E4F004188CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		68899C47194F5E4F004188CD /* Build configuration list for PBXNativeTarget "Geekon-SocialMapTests" */ = {
 			isa = XCConfigurationList;
@@ -478,6 +483,7 @@
 				68899C49194F5E4F004188CD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
