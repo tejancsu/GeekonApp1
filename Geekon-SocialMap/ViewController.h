@@ -31,6 +31,5 @@
 @property (weak, nonatomic) IBOutlet UIButton *searchButtonForDeals;
 
 @property (weak, nonatomic) IBOutlet UISearchBar *postBar;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *postCategory;
 
 @end

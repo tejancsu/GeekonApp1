@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Geekon-SocialMap/ViewController.m"
-            timestampString = "424811446.166414"
+            timestampString = "424827352.57191"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "208"
-            endingLineNumber = "208"
-            landmarkName = "-searchButtonTapped:"
+            startingLineNumber = "213"
+            endingLineNumber = "213"
+            landmarkName = "-fetchAndDisplayCheckins:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,13 +26,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Geekon-SocialMap/ViewController.m"
-            timestampString = "424811446.166414"
+            timestampString = "424827352.57191"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "@implementation ViewController"
-            landmarkType = "3">
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "-viewDidLoad"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -42,12 +42,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Geekon-SocialMap/ViewController.m"
-            timestampString = "424811446.166414"
+            timestampString = "424827352.57191"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "221"
-            endingLineNumber = "221"
-            landmarkName = "-searchButtonTapped:"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
+            landmarkName = "-fetchAndDisplayCheckins:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

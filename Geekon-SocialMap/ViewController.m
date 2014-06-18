@@ -15,13 +15,18 @@
 
 @interface ViewController ()
 
+{
+    UIToolbar *keyboardToolbar;
+    UISegmentedControl *segControl;
+    NSArray *itemArray;
+}
+
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad
 {
-    
     [super viewDidLoad];
     
     self.mapView.delegate = self;
@@ -39,7 +44,6 @@
     //Set some parameters for the location object.
     [locationManager setDistanceFilter:kCLDistanceFilterNone];
     [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
-    
     
     [self.centerOnUserLocation addTarget:self action:@selector(centerOnUserLocationTapped:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -79,6 +83,10 @@
     // Remove the icon, which is located in the left view
     [UITextField appearanceWhenContainedIn:[UISearchBar class], nil].leftView = nil;
     self.postBar.searchTextPositionAdjustment = UIOffsetMake(10, 0);
+    
+    // keyboardToolbar
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -87,6 +95,7 @@
     CLLocationCoordinate2D zoomLocation;
     zoomLocation.latitude = 37.785834;
     zoomLocation.longitude= -122.406417;
+
     // 2
     MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, METERS_PER_MILE, METERS_PER_MILE);
     
@@ -97,7 +106,6 @@
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(myAnnotation *)annotation {
-    
     if([annotation isKindOfClass:[MKUserLocation class]]){
         return NULL;
     }
@@ -139,7 +147,6 @@
         
         return annotationView;
     }
-
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
@@ -194,7 +201,6 @@
     }
     
     NSLog(@"query: %@", query);
-    
     
     // Send a synchronous request
     NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:query]];
@@ -283,13 +289,14 @@
 
 // POST
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+- (void) searchBarSearchButtonClicked:(UISearchBar *) searchBar
 {
     [searchBar resignFirstResponder];
     
     // do POST request ...
+    NSString *category = [itemArray objectAtIndex:segControl.selectedSegmentIndex];
     NSString *text = searchBar.text;
-    NSLog(@"%@", text);
+    NSLog(@"%@:%@", category, text);
     
     CLLocationCoordinate2D location = [[[self.mapView userLocation] location] coordinate];
     
@@ -325,13 +332,65 @@
     NSDictionary *checkins = [[NSDictionary dictionaryWithJSONString:jsonString error:&theError] objectForKey:@"social_map"];
     NSLog(@"dictionary: %@", checkins);
     
+
     [self setSearchButtonBackground:@"all"];
     [self fetchAndDisplayCheckins:@"all"];
+
+    self.postBar.text = @"";
+    [self.postBar resignFirstResponder];
+
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
     self.postBar.text = @"";
     [self.postBar resignFirstResponder];
+    [keyboardToolbar resignFirstResponder];
+}
+
+// keyboard toolbar
+
+- (void) keyboardWillShow: (NSNotification *) notification {
+    if(keyboardToolbar == nil){
+        // add keyboard toolbar
+        keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+        [keyboardToolbar setBackgroundImage:[[UIImage alloc] init] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
+        keyboardToolbar.clipsToBounds = YES;
+        
+        itemArray = [NSArray arrayWithObjects: @"All", @"Food", @"Event", @"Deal", nil];
+        segControl = [[UISegmentedControl alloc] initWithItems:itemArray];
+
+        [keyboardToolbar setItems: [NSArray arrayWithObject:[[UIBarButtonItem alloc] initWithCustomView:segControl]]];
+    }
+    
+    // show keyboard toolbar
+    keyboardToolbar.frame = CGRectMake(0, self.view.frame.size.height, self.view.frame.size.width, 50);
+    [self.view addSubview:keyboardToolbar];
+    
+    UIViewAnimationCurve animationCurve = [[[notification userInfo] valueForKey: UIKeyboardAnimationCurveUserInfoKey] intValue];
+    NSTimeInterval animationDuration = [[[notification userInfo] valueForKey: UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    
+    CGRect keyboardBounds = [(NSValue *)[[notification userInfo] objectForKey: UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    [UIView beginAnimations:nil context: nil];
+    [UIView setAnimationCurve:animationCurve];
+    [UIView setAnimationDuration:animationDuration];
+    
+    [keyboardToolbar setFrame:CGRectMake(0.0f, self.view.frame.size.height - keyboardBounds.size.height - keyboardToolbar.frame.size.height,              keyboardToolbar.frame.size.width, keyboardToolbar.frame.size.height)];
+    [UIView commitAnimations];
+}
+
+- (void) keyboardWillHide: (NSNotification *) notification {
+    // hide keyboard toolbar
+    UIViewAnimationCurve animationCurve = [[[notification userInfo] valueForKey: UIKeyboardAnimationCurveUserInfoKey] intValue];
+    NSTimeInterval animationDuration = [[[notification userInfo] valueForKey: UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    
+    CGRect keyboardBounds = [(NSValue *)[[notification userInfo] objectForKey: UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    [UIView beginAnimations:nil context: nil];
+    [UIView setAnimationCurve:animationCurve];
+    [UIView setAnimationDuration:animationDuration];
+    
+    [keyboardToolbar setFrame:CGRectMake(0.0f, self.view.frame.size.height - 46.0f, keyboardToolbar.frame.size.width, keyboardToolbar.frame.size.height)];
+    [UIView commitAnimations];
+    [keyboardToolbar removeFromSuperview];
 }
 
 @end

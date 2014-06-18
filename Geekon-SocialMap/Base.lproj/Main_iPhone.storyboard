@@ -67,14 +67,6 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Pxq-ce-dPD">
-                                <rect key="frame" x="20" y="481" width="280" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <segments>
-                                    <segment title="First"/>
-                                    <segment title="Second"/>
-                                </segments>
-                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -82,7 +74,6 @@
                         <outlet property="centerOnUserLocation" destination="XPM-XB-gvc" id="vrV-IM-M1j"/>
                         <outlet property="mapView" destination="VZs-kC-5zI" id="x9a-vC-ULp"/>
                         <outlet property="postBar" destination="zHp-i3-Ftf" id="oGG-xU-jwR"/>
-                        <outlet property="postCategory" destination="Pxq-ce-dPD" id="9TD-GJ-SkI"/>
                         <outlet property="searchButtonForAll" destination="EsB-XC-VcF" id="0Uh-Ss-gjW"/>
                         <outlet property="searchButtonForDeals" destination="NpG-e0-Fwf" id="WLv-zH-oAw"/>
                         <outlet property="searchButtonForEvents" destination="1NV-tC-NYI" id="vuY-nK-0ri"/>
