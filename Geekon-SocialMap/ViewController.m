@@ -13,7 +13,6 @@
 
 #define METERS_PER_MILE 1609.344
 
-
 @interface ViewController ()
 
 @end
@@ -83,8 +82,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    //1
     
+    //1
     CLLocationCoordinate2D location = [[[self.mapView userLocation] location] coordinate];
     
     CLLocationCoordinate2D zoomLocation;
@@ -94,7 +93,6 @@
     MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 0.3*METERS_PER_MILE, 0.3*METERS_PER_MILE);
     [self.mapView setRegion:viewRegion animated:YES];
 }
-
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(myAnnotation *)annotation {
     
@@ -125,6 +123,7 @@
     [self.mapView setRegion:region animated:YES];
 }
 
+// GET
 
 - (void) searchButtonTapped:(id) button {
     if (![button isKindOfClass:[UIButton class]])
@@ -225,10 +224,7 @@
     }
 }
 
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
-    self.postBar.text = @"";
-    [self.postBar resignFirstResponder];
-}
+// POST
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
@@ -257,7 +253,6 @@
     
     NSLog(@"query: %@", query);
     
-    
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:query]];
     
     request.HTTPMethod = @"POST";
@@ -265,8 +260,8 @@
     NSHTTPURLResponse * response = nil;
     NSError * error = nil;
     NSData * data = [NSURLConnection sendSynchronousRequest:request
-                                           returningResponse:&response
-                                                       error:&error];
+                                     returningResponse:&response
+                                     error:&error];
     
     NSString * jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     NSError *theError = nil;
@@ -274,5 +269,9 @@
     NSLog(@"dictionary: %@", checkins);
 }
 
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
+    self.postBar.text = @"";
+    [self.postBar resignFirstResponder];
+}
 
 @end

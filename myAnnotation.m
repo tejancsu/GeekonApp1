@@ -20,7 +20,6 @@
     return self;
 }
 
-
 //3.2
 -(id) initWithCoordinate:(CLLocationCoordinate2D)coordinate title:(NSString *)title category:(NSString *)category {
     if ((self = [super init])) {

@@ -11,6 +11,7 @@
 
 //3.1
 @interface myAnnotation : NSObject
+
 @property (strong, nonatomic) NSString *title;
 @property (nonatomic,assign) CLLocationCoordinate2D coordinate;
 @property (strong, nonatomic) NSString *category;
