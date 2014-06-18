@@ -111,6 +111,24 @@
         annotationView.canShowCallout = YES;
         
         annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        
+        NSString * imageName;
+        
+        if ([annotation.category isEqual: [NSNull null]]) {
+            imageName = @"default.png";
+        } else if ([annotation.category isEqualToString:@"deals"] ) {
+            imageName = @"deals.png";
+        } else if ([annotation.category isEqualToString:@"events"] ) {
+            imageName = @"events.png";
+        } else if ([annotation.category isEqualToString:@"food_and_drinks"] ) {
+            imageName = @"food_and_drinks.png";
+        } else if ([annotation.category isEqualToString:@"all"] ) {
+            imageName = @"default.png";
+        }
+
+        // Add a custom image to the left side of the callout.
+        UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
+        annotationView.leftCalloutAccessoryView = image;
         return annotationView;
     }
 
@@ -181,23 +199,14 @@
         NSDecimalNumber * lon = [key objectForKey:@"lon"];
         NSString * category = [key objectForKey:@"category"];
         NSString * text = [key objectForKey:@"text"];
-        NSArray *extra_texts = [NSArray arrayWithObjects: @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
-        NSMutableString * mutable_text =  [NSMutableString string];
-
-
-        //[key objectForKey:@"extraTexts"];
-
-        for (id et in extra_texts) {
-            [mutable_text appendString: et];
-        }
-        NSLog(@"lat: %@, lon: %@, category:%@, text:%@", lat, lon, category, mutable_text);
+        
+        NSLog(@"lat: %@, lon: %@, category:%@, text:%@", lat, lon, category, text);
         
         CLLocationCoordinate2D coordinate;
         
         coordinate.latitude = [lat doubleValue];
         coordinate.longitude = [lon doubleValue];
-        
-        myAnnotation *annotation = [[myAnnotation alloc] initWithCoordinate:coordinate subtitle:mutable_text title:text category:category];
+        myAnnotation *annotation = [[myAnnotation alloc] initWithCoordinate:coordinate subtitle:@"" title:text category:category];
         [self.mapView addAnnotation:annotation];
     }
     
