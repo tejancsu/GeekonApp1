@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5053" systemVersion="13C64" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5056" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -7,15 +7,6 @@
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="ZDS-mq-Hd3">
-                    <connections>
-                        <outlet property="delegate" destination="vXZ-lx-hvc" id="4NB-m5-qrY"/>
-                        <outlet property="searchContentsController" destination="vXZ-lx-hvc" id="sV5-lI-tz3"/>
-                        <outlet property="searchResultsDataSource" destination="vXZ-lx-hvc" id="atL-Z3-API"/>
-                        <outlet property="searchResultsDelegate" destination="vXZ-lx-hvc" id="HK2-5y-pco"/>
-                    </connections>
-                </searchDisplayController>
                 <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
@@ -69,10 +60,18 @@
                                     <string>Title</string>
                                 </scopeButtonTitles>
                             </searchBar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XPM-XB-gvc">
+                                <rect key="frame" x="134" y="70" width="52" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Center">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="centerOnUserLocation" destination="XPM-XB-gvc" id="vrV-IM-M1j"/>
                         <outlet property="mapView" destination="VZs-kC-5zI" id="x9a-vC-ULp"/>
                         <outlet property="postBar" destination="zHp-i3-Ftf" id="oGG-xU-jwR"/>
                         <outlet property="searchButtonForAll" destination="EsB-XC-VcF" id="0Uh-Ss-gjW"/>
@@ -82,6 +81,15 @@
                         <outlet property="searchDisplayController" destination="ZDS-mq-Hd3" id="lAA-yX-BJg"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="ZDS-mq-Hd3">
+                    <connections>
+                        <outlet property="delegate" destination="vXZ-lx-hvc" id="4NB-m5-qrY"/>
+                        <outlet property="searchContentsController" destination="vXZ-lx-hvc" id="sV5-lI-tz3"/>
+                        <outlet property="searchResultsDataSource" destination="vXZ-lx-hvc" id="atL-Z3-API"/>
+                        <outlet property="searchResultsDelegate" destination="vXZ-lx-hvc" id="HK2-5y-pco"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="374" y="44"/>
         </scene>

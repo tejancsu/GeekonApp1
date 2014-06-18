@@ -27,6 +27,23 @@
     
     self.mapView.delegate = self;
     
+    // Ensure that you can view your own location in the map view.
+    [self.mapView setShowsUserLocation:YES];
+    self.mapView.showsUserLocation = YES;
+    
+    //Instantiate a location object.
+    locationManager = [[CLLocationManager alloc] init];
+    
+    //Make this controller the delegate for the location manager.
+    [locationManager setDelegate:self];
+    
+    //Set some parameters for the location object.
+    [locationManager setDistanceFilter:kCLDistanceFilterNone];
+    [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
+    
+    
+    [self.centerOnUserLocation addTarget:self action:@selector(centerOnUserLocationTapped:) forControlEvents:UIControlEventTouchUpInside];
+    
     // customize search buttons
     UIColor * color = [UIColor colorWithRed:230.0f/255.0f green:184.0f/255.0f blue:175.0f/255.0f alpha:1.0];
     
@@ -67,25 +84,22 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     //1
+    
+    CLLocationCoordinate2D location = [[[self.mapView userLocation] location] coordinate];
+    
     CLLocationCoordinate2D zoomLocation;
-    zoomLocation.latitude = 40.740848;
-    zoomLocation.longitude= -73.991145;
+    zoomLocation.latitude = location.latitude;
+    zoomLocation.longitude= location.longitude;
     // 2
     MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 0.3*METERS_PER_MILE, 0.3*METERS_PER_MILE);
     [self.mapView setRegion:viewRegion animated:YES];
 }
 
+
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(myAnnotation *)annotation {
-    //7
-    
-    if (annotation == mapView.userLocation)
-    {
-        
-    }
     
     if([annotation isKindOfClass:[MKUserLocation class]]){
-        MKPinAnnotationView * annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"blueDot"];
-        return annotationView;
+        return NULL;
     }
     else{
         static NSString *identifier = @"myAnnotation";
@@ -103,6 +117,14 @@
     }
 
 }
+
+- (void) centerOnUserLocationTapped:(id) button {
+    MKUserLocation *userLocation = self.mapView.userLocation;
+    MKCoordinateRegion region =
+    MKCoordinateRegionMakeWithDistance (userLocation.location.coordinate, 1000, 1000);
+    [self.mapView setRegion:region animated:YES];
+}
+
 
 - (void) searchButtonTapped:(id) button {
     if (![button isKindOfClass:[UIButton class]])
@@ -251,5 +273,6 @@
     NSDictionary *checkins = [[NSDictionary dictionaryWithJSONString:jsonString error:&theError] objectForKey:@"social_map"];
     NSLog(@"dictionary: %@", checkins);
 }
+
 
 @end

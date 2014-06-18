@@ -11,9 +11,14 @@
 #import <CoreLocation/CoreLocation.h>
 #import "CJSONDeserializer.h"
 
-@interface ViewController : UIViewController <UITextFieldDelegate>
+@interface ViewController : UIViewController <UITextFieldDelegate, MKMapViewDelegate, CLLocationManagerDelegate>
+
+{
+    CLLocationManager *locationManager;
+}
 
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet UIButton *centerOnUserLocation;
 
 @property (weak, nonatomic) IBOutlet UIButton *searchButtonForAll;
 @property (weak, nonatomic) IBOutlet UIButton *searchButtonForFood;
