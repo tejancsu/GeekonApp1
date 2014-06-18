@@ -65,6 +65,7 @@
     self.searchButtonForDeals.layer.cornerRadius = 12;
     self.searchButtonForDeals.layer.borderWidth = 1;
     self.searchButtonForDeals.layer.borderColor = color.CGColor;
+
     
     // click on search buttons
     [self.searchButtonForAll addTarget:self action:@selector(searchButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
@@ -83,14 +84,15 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    //1
-    CLLocationCoordinate2D location = [[[self.mapView userLocation] location] coordinate];
-    
     CLLocationCoordinate2D zoomLocation;
-    zoomLocation.latitude = location.latitude;
-    zoomLocation.longitude= location.longitude;
+    zoomLocation.latitude = 37.785834;
+    zoomLocation.longitude= -122.406417;
     // 2
-    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 0.3*METERS_PER_MILE, 0.3*METERS_PER_MILE);
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, METERS_PER_MILE, METERS_PER_MILE);
+    
+    
+    [self setSearchButtonBackground:@"none"];
+//    [self fetchAndDisplayCheckins:@"all"];
     [self.mapView setRegion:viewRegion animated:YES];
 }
 
@@ -102,11 +104,9 @@
     else{
         static NSString *identifier = @"myAnnotation";
         MKPinAnnotationView * annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
-        if (annotation.category != (id)[NSNull null] && [annotation.category isEqualToString:@"events"]){
-            annotationView.pinColor = MKPinAnnotationColorPurple;
-        } else{
-            annotationView.pinColor = MKPinAnnotationColorGreen;
-        }
+
+        annotationView.pinColor = MKPinAnnotationColorRed;
+        
         annotationView.animatesDrop = YES;
         annotationView.canShowCallout = YES;
         
@@ -119,36 +119,12 @@
 - (void) centerOnUserLocationTapped:(id) button {
     MKUserLocation *userLocation = self.mapView.userLocation;
     MKCoordinateRegion region =
-    MKCoordinateRegionMakeWithDistance (userLocation.location.coordinate, 1000, 1000);
+    MKCoordinateRegionMakeWithDistance (userLocation.location.coordinate, METERS_PER_MILE, METERS_PER_MILE);
     [self.mapView setRegion:region animated:YES];
 }
 
-// GET
 
-- (void) searchButtonTapped:(id) button {
-    if (![button isKindOfClass:[UIButton class]])
-        return;
-    
-    NSString *title = [(UIButton *)button currentTitle];
-    NSString *category = nil;
-    
-    if ([title  isEqual: @"A"]) {
-        category = @"all";
-    } else if ([title  isEqual: @"F"]) {
-        category = @"food_and_drinks";
-    } else if ([title  isEqual: @"E"]) {
-        category = @"events";
-    } else if ([title  isEqual: @"D"]) {
-        category = @"deals";
-    }
-    
-    NSLog(@"%@", category);
-    
-    // do GET request ...
-    for (id<MKAnnotation> annotation in self.mapView.annotations) {
-        [self.mapView removeAnnotation:annotation];
-    }
-    
+- (void) fetchAndDisplayCheckins:(NSString *)category {
     MKCoordinateRegion mapRegion = [self.mapView region];
     CLLocationCoordinate2D center = mapRegion.center;
     
@@ -166,7 +142,7 @@
     NSString * center_lon = [center_lon_double stringValue];
     
     NSNumber * distance_double = [NSNumber numberWithDouble:(69.0 * MAX(mapRegion.span.latitudeDelta, mapRegion.span.longitudeDelta))];
-
+    
     NSString * distance = [distance_double stringValue];
     
     NSMutableString * query = [NSMutableString string];
@@ -222,6 +198,54 @@
     {
         // Parse data here
     }
+
+}
+
+- (void) setSearchButtonBackground:(NSString *) category {
+    
+    [self.searchButtonForAll  setBackgroundColor:[UIColor colorWithRed:250.0/255.0 green:250.0/255.0 blue:250.0/255.0 alpha:1.0]];
+    [self.searchButtonForFood  setBackgroundColor:[UIColor colorWithRed:250.0/255.0 green:250.0/255.0 blue:250.0/255.0 alpha:1.0]];
+    [self.searchButtonForEvents  setBackgroundColor:[UIColor colorWithRed:250.0/255.0 green:250.0/255.0 blue:250.0/255.0 alpha:1.0]];
+    [self.searchButtonForDeals  setBackgroundColor:[UIColor colorWithRed:250.0/255.0 green:250.0/255.0 blue:250.0/255.0 alpha:1.0]];
+    
+    if ([category isEqualToString:@"all"]){
+        [self.searchButtonForAll  setBackgroundColor:[UIColor colorWithRed:202.0/255.0 green:225.0/255.0 blue:255.0/255.0 alpha:1.0]];
+    } else if ([category isEqualToString:@"food_and_drinks"]){
+        [self.searchButtonForFood  setBackgroundColor:[UIColor colorWithRed:202.0/255.0 green:225.0/255.0 blue:255.0/255.0 alpha:1.0]];
+    } else if ([category isEqualToString:@"events"]){
+        [self.searchButtonForEvents  setBackgroundColor:[UIColor colorWithRed:202.0/255.0 green:225.0/255.0 blue:255.0/255.0 alpha:1.0]];
+    } else if ([category isEqualToString:@"deals"]){
+        [self.searchButtonForDeals  setBackgroundColor:[UIColor colorWithRed:202.0/255.0 green:225.0/255.0 blue:255.0/255.0 alpha:1.0]];
+    }
+}
+
+- (void) searchButtonTapped:(id) button {
+    if (![button isKindOfClass:[UIButton class]])
+        return;
+    
+    NSString *title = [(UIButton *)button currentTitle];
+    NSString *category = nil;
+    
+    if ([title  isEqual: @"A"]) {
+        category = @"all";
+    } else if ([title  isEqual: @"F"]) {
+        category = @"food_and_drinks";
+    } else if ([title  isEqual: @"E"]) {
+        category = @"events";
+    } else if ([title  isEqual: @"D"]) {
+        category = @"deals";
+    }
+    
+    [self setSearchButtonBackground:category];
+
+    NSLog(@"%@", category);
+    
+    // do GET request ...
+    for (id<MKAnnotation> annotation in self.mapView.annotations) {
+        [self.mapView removeAnnotation:annotation];
+    }
+    
+    [self fetchAndDisplayCheckins:category];
 }
 
 // POST
@@ -267,6 +291,9 @@
     NSError *theError = nil;
     NSDictionary *checkins = [[NSDictionary dictionaryWithJSONString:jsonString error:&theError] objectForKey:@"social_map"];
     NSLog(@"dictionary: %@", checkins);
+    
+    [self setSearchButtonBackground:@"all"];
+    [self fetchAndDisplayCheckins:@"all"];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
