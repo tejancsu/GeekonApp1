@@ -181,14 +181,23 @@
         NSDecimalNumber * lon = [key objectForKey:@"lon"];
         NSString * category = [key objectForKey:@"category"];
         NSString * text = [key objectForKey:@"text"];
-        
-        NSLog(@"lat: %@, lon: %@, category:%@, text:%@", lat, lon, category, text);
+        NSArray *extra_texts = [NSArray arrayWithObjects: @"1", @"2", @"3", @"4", @"5", @"6", @"7", @"8", @"9", nil];
+        NSMutableString * mutable_text =  [NSMutableString string];
+
+
+        //[key objectForKey:@"extraTexts"];
+
+        for (id et in extra_texts) {
+            [mutable_text appendString: et];
+        }
+        NSLog(@"lat: %@, lon: %@, category:%@, text:%@", lat, lon, category, mutable_text);
         
         CLLocationCoordinate2D coordinate;
         
         coordinate.latitude = [lat doubleValue];
         coordinate.longitude = [lon doubleValue];
-        myAnnotation *annotation = [[myAnnotation alloc] initWithCoordinate:coordinate title:text category:category];
+        
+        myAnnotation *annotation = [[myAnnotation alloc] initWithCoordinate:coordinate subtitle:mutable_text title:text category:category];
         [self.mapView addAnnotation:annotation];
     }
     
