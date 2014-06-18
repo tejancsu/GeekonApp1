@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "CategoryTableViewController.h"
 
 @interface ViewController ()
 
@@ -54,28 +53,27 @@
     // Remove the icon, which is located in the left view
     [UITextField appearanceWhenContainedIn:[UISearchBar class], nil].leftView = nil;
     self.postBar.searchTextPositionAdjustment = UIOffsetMake(10, 0);
-    
-    // customize keyboard search button
-    
 }
 
 - (void) searchButtonTapped:(id) button {
     if (![button isKindOfClass:[UIButton class]])
         return;
     
-    if(button == self.searchButtonForAll) {
-        NSString *title = [(UIButton *)button currentTitle];
-        NSLog(@"%@", title);
-    } else if(button == self.searchButtonForFood) {
-        NSString *title = [(UIButton *)button currentTitle];
-        NSLog(@"%@", title);
-    } else if (button == self.searchButtonForEvents) {
-        NSString *title = [(UIButton *)button currentTitle];
-        NSLog(@"%@", title);
-    } else if (button == self.searchButtonForDeals) {
-        NSString *title = [(UIButton *)button currentTitle];
-        NSLog(@"%@", title);
+    NSString *title = [(UIButton *)button currentTitle];
+    NSString *category = nil;
+    
+    if ([title  isEqual: @"A"]) {
+        category = @"All";
+    } else if ([title  isEqual: @"F"]) {
+        category = @"Food";
+    } else if ([title  isEqual: @"E"]) {
+        category = @"Event";
+    } else if ([title  isEqual: @"D"]) {
+        category = @"Deal";
     }
+    
+    NSLog(@"%@", category);
+    // do GET request ...
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
@@ -87,9 +85,11 @@
 {
     [searchBar resignFirstResponder];
     
-    // Do the search...
+    // do POST request ...
     NSString *text = searchBar.text;
     NSLog(@"%@", text);
+    CLLocationCoordinate2D location = [[[self.mapView userLocation] location] coordinate];
+    NSLog(@"Location found from Map: %f %f", location.latitude, location.longitude);
 }
 
 @end

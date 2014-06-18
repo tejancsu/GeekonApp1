@@ -18,7 +18,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *searchButtonForEvents;
 @property (weak, nonatomic) IBOutlet UIButton *searchButtonForDeals;
 
-@property (weak, nonatomic) IBOutlet UITextField *postText;
 @property (weak, nonatomic) IBOutlet UISearchBar *postBar;
 
 @end
