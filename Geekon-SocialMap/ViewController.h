@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import <CoreLocation/CoreLocation.h>
+#import "CJSONDeserializer.h"
 
 @interface ViewController : UIViewController <UITextFieldDelegate>
 

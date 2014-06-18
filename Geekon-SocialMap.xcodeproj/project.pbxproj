@@ -23,6 +23,10 @@
 		68899C3F194F5E4F004188CD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 68899C3D194F5E4F004188CD /* InfoPlist.strings */; };
 		68899C41194F5E4F004188CD /* Geekon_SocialMapTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 68899C40194F5E4F004188CD /* Geekon_SocialMapTests.m */; };
 		68899C4B194F690D004188CD /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 68899C4A194F690D004188CD /* MapKit.framework */; };
+		68899CD8195120D8004188CD /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 68899CD2195120D8004188CD /* CJSONDeserializer.m */; };
+		68899CD9195120D8004188CD /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 68899CD4195120D8004188CD /* CJSONSerializer.m */; };
+		68899CDA195120D8004188CD /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 68899CD7195120D8004188CD /* NSDictionary_JSONExtensions.m */; };
+		68899CE019520ACF004188CD /* myAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 68899CDF19520ACF004188CD /* myAnnotation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +61,15 @@
 		68899C3E194F5E4F004188CD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		68899C40194F5E4F004188CD /* Geekon_SocialMapTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Geekon_SocialMapTests.m; sourceTree = "<group>"; };
 		68899C4A194F690D004188CD /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		68899CD1195120D8004188CD /* CJSONDeserializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONDeserializer.h; sourceTree = "<group>"; };
+		68899CD2195120D8004188CD /* CJSONDeserializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONDeserializer.m; sourceTree = "<group>"; };
+		68899CD3195120D8004188CD /* CJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONSerializer.h; sourceTree = "<group>"; };
+		68899CD4195120D8004188CD /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
+		68899CD5195120D8004188CD /* JSONRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONRepresentation.h; sourceTree = "<group>"; };
+		68899CD6195120D8004188CD /* NSDictionary_JSONExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDictionary_JSONExtensions.h; sourceTree = "<group>"; };
+		68899CD7195120D8004188CD /* NSDictionary_JSONExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionary_JSONExtensions.m; sourceTree = "<group>"; };
+		68899CDE19520ACF004188CD /* myAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myAnnotation.h; sourceTree = "<group>"; };
+		68899CDF19520ACF004188CD /* myAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myAnnotation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +100,9 @@
 		68899C06194F5E4E004188CD = {
 			isa = PBXGroup;
 			children = (
+				68899CDE19520ACF004188CD /* myAnnotation.h */,
+				68899CDF19520ACF004188CD /* myAnnotation.m */,
+				68899CD0195120D8004188CD /* Source */,
 				68899C18194F5E4E004188CD /* Geekon-SocialMap */,
 				68899C3A194F5E4F004188CD /* Geekon-SocialMapTests */,
 				68899C11194F5E4E004188CD /* Frameworks */,
@@ -157,6 +173,21 @@
 				68899C3D194F5E4F004188CD /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		68899CD0195120D8004188CD /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				68899CD1195120D8004188CD /* CJSONDeserializer.h */,
+				68899CD2195120D8004188CD /* CJSONDeserializer.m */,
+				68899CD3195120D8004188CD /* CJSONSerializer.h */,
+				68899CD4195120D8004188CD /* CJSONSerializer.m */,
+				68899CD5195120D8004188CD /* JSONRepresentation.h */,
+				68899CD6195120D8004188CD /* NSDictionary_JSONExtensions.h */,
+				68899CD7195120D8004188CD /* NSDictionary_JSONExtensions.m */,
+			);
+			name = Source;
+			path = "Geekon-SocialMap/Source";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,6 +290,10 @@
 			files = (
 				68899C2C194F5E4F004188CD /* ViewController.m in Sources */,
 				68899C23194F5E4F004188CD /* AppDelegate.m in Sources */,
+				68899CE019520ACF004188CD /* myAnnotation.m in Sources */,
+				68899CD9195120D8004188CD /* CJSONSerializer.m in Sources */,
+				68899CD8195120D8004188CD /* CJSONDeserializer.m in Sources */,
+				68899CDA195120D8004188CD /* NSDictionary_JSONExtensions.m in Sources */,
 				68899C1F194F5E4E004188CD /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
