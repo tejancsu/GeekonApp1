@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UITextFieldDelegate>
+
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
+
+@property (weak, nonatomic) IBOutlet UIButton *searchButtonForAll;
+@property (weak, nonatomic) IBOutlet UIButton *searchButtonForFood;
+@property (weak, nonatomic) IBOutlet UIButton *searchButtonForEvents;
+@property (weak, nonatomic) IBOutlet UIButton *searchButtonForDeals;
+
+@property (weak, nonatomic) IBOutlet UITextField *postText;
+@property (weak, nonatomic) IBOutlet UISearchBar *postBar;
 
 @end
