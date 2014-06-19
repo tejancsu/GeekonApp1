@@ -147,7 +147,7 @@
 
         // Add a custom image to the left side of the callout.
         UIImageView *image = [[UIImageView alloc] initWithImage:imageObject];
-        image.frame = CGRectMake(0,0,31,31);
+        image.frame = CGRectMake(0,0,35,35);
         annotationView.leftCalloutAccessoryView = image;
         
         NSString *small = [[NSBundle mainBundle] pathForResource:@"fire_small" ofType:@"png"];
