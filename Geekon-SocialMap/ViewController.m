@@ -509,7 +509,7 @@ calloutAccessoryControlTapped:(UIControl *)control
     [self.postBar resignFirstResponder];
 
     // confirmation dialog
-    [self showStatus:@"Post successfully!" timeout:0.8];
+    [self showStatus:@"You have checked in!" timeout:1.0];
 //    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Post successfully!"
 //                                              message:nil
 //                                              delegate:self
