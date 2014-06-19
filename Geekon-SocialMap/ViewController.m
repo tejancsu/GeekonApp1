@@ -92,6 +92,59 @@
     // keyboardToolbar
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+    
+    
+    
+    CLLocationCoordinate2D center;
+    center.latitude = 37.785834;
+    center.longitude= -122.406417;
+    
+    NSNumber * center_lat_double = [NSNumber numberWithDouble:center.latitude];
+    NSNumber * center_lon_double = [NSNumber numberWithDouble:center.longitude];
+    
+    NSString * center_lat = [center_lat_double stringValue];
+    NSString * center_lon = [center_lon_double stringValue];
+    
+    NSNumber * distance_double = [NSNumber numberWithDouble:1.0];
+    
+    NSString * distance = [distance_double stringValue];
+    
+    NSMutableString * query = [NSMutableString string];
+    [query appendString:@"http://10.101.114.89:3000/checkins?"];
+    [query appendString:@"lat="];
+    [query appendString:center_lat];
+    [query appendString:@"&lon="];
+    [query appendString:center_lon];
+    [query appendString:@"&dist="];
+    [query appendString:distance];
+    
+    // Send a synchronous request
+    NSMutableURLRequest * request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:query]];
+    request.HTTPMethod = @"GET";
+    NSHTTPURLResponse * response = nil;
+    NSError * error = nil;
+    NSData * data = [NSURLConnection sendSynchronousRequest:request
+                                          returningResponse:&response
+                                                      error:&error];
+    
+    NSString * jsonString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSError *theError = nil;
+    NSDictionary *checkins = [[NSDictionary dictionaryWithJSONString:jsonString error:&theError] objectForKey:@"social_map"];
+    
+    for (id key in checkins) {
+        NSDecimalNumber * lat = [key objectForKey:@"lat"];
+        NSDecimalNumber * lon = [key objectForKey:@"lon"];
+        NSString * category = [key objectForKey:@"category"];
+        NSString * text = [key objectForKey:@"text"];
+                
+        CLLocationCoordinate2D coordinate;
+        
+        coordinate.latitude = [lat doubleValue];
+        coordinate.longitude = [lon doubleValue];
+        myAnnotation *annotation = [[myAnnotation alloc] initWithCoordinate:coordinate subtitle:@"(5 checkins here)" title:text category:category];
+        [self.mapView addAnnotation:annotation];
+    }
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -181,10 +234,53 @@ calloutAccessoryControlTapped:(UIControl *)control
     
 }
 
+- (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id < MKOverlay >)overlay
+{
+    MKPolylineRenderer *renderer =
+    [[MKPolylineRenderer alloc] initWithOverlay:overlay];
+    renderer.strokeColor = [UIColor colorWithRed:30.0/255.0 green:144.0/255.0 blue:255.0/255.0 alpha:1.0];
+    renderer.lineWidth = 5.0;
+    return renderer;
+}
+
+-(void)showRoute:(MKDirectionsResponse *)response
+{
+    for (MKRoute *route in response.routes)
+    {
+        [self.mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
+    }
+}
+
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
 
+    NSArray *pointsArray = [mapView overlays];
+    
+    [mapView removeOverlays:pointsArray];
+    
+    id <MKAnnotation> annotation = view.annotation;
+    CLLocationCoordinate2D coordinate = [annotation coordinate];
+    MKPlacemark *placemark = [[MKPlacemark alloc] initWithCoordinate:coordinate addressDictionary:nil];
+    MKMapItem *destination = [[MKMapItem alloc] initWithPlacemark:placemark];
+    
     //loading an image
+    MKDirectionsRequest *request = [[MKDirectionsRequest alloc] init];
+    
+    request.source = [MKMapItem mapItemForCurrentLocation];
+    
+    request.destination = destination;
+    request.requestsAlternateRoutes = YES;
+    MKDirections *directions =
+    [[MKDirections alloc] initWithRequest:request];
+    
+    [directions calculateDirectionsWithCompletionHandler:
+     ^(MKDirectionsResponse *response, NSError *error) {
+         if (error) {
+             // Handle Error
+         } else {
+             [self showRoute:response];
+         }
+     }];
 }
 
 
