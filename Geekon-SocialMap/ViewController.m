@@ -24,9 +24,7 @@
 
 @end
 
-
 @implementation ViewController
-
 
 - (void)viewDidLoad
 {
@@ -221,7 +219,6 @@
 //        annotationView.rightCalloutAccessoryView = animatedImageView;
         
         annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-
         
         return annotationView;
     }
@@ -231,7 +228,6 @@
 calloutAccessoryControlTapped:(UIControl *)control
 {
     NSLog(@"accessory button tapped for annotation %@", view.annotation);
-    
 }
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id < MKOverlay >)overlay
@@ -250,7 +246,6 @@ calloutAccessoryControlTapped:(UIControl *)control
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
 {
-
     NSArray *pointsArray = [mapView overlays];
     
     [mapView removeOverlays:pointsArray];
@@ -280,7 +275,6 @@ calloutAccessoryControlTapped:(UIControl *)control
      }];
 }
 
-
 - (void) centerOnUserLocationTapped:(id) button {
     MKUserLocation *userLocation = self.mapView.userLocation;
     MKCoordinateRegion region =
@@ -288,8 +282,7 @@ calloutAccessoryControlTapped:(UIControl *)control
     [self.mapView setRegion:region animated:YES];
 }
 
-
-- (void) fetchAndDisplayCheckins:(NSString *)category {
+- (void) fetchAndDisplayCheckins:(NSString *) category {
     MKCoordinateRegion mapRegion = [self.mapView region];
     CLLocationCoordinate2D center = mapRegion.center;
     
@@ -362,7 +355,6 @@ calloutAccessoryControlTapped:(UIControl *)control
     {
         // Parse data here
     }
-
 }
 
 - (void) setSearchButtonBackground:(NSString *) category {
@@ -483,6 +475,33 @@ calloutAccessoryControlTapped:(UIControl *)control
     self.postBar.text = @"";
     [self.postBar resignFirstResponder];
 
+    // confirmation dialog
+    [self showStatus:@"Post successfully!" timeout:0.8];
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Post successfully!"
+//                                              message:nil
+//                                              delegate:self
+//                                              cancelButtonTitle:nil
+//                                              otherButtonTitles:nil];
+//    [alert show];
+//    [alert dismissWithClickedButtonIndex:0 animated:TRUE];
+}
+
+- (void) showStatus:(NSString *)message timeout:(double)timeout {
+    statusAlert = [[UIAlertView alloc] initWithTitle:nil
+                                       message:message
+                                       delegate:nil
+                                       cancelButtonTitle:nil
+                                       otherButtonTitles:nil];
+    [statusAlert show];
+    [NSTimer scheduledTimerWithTimeInterval:timeout
+             target:self
+             selector:@selector(timerExpired:)
+             userInfo:nil
+             repeats:NO];
+}
+
+- (void) timerExpired:(NSTimer *)timer {
+    [statusAlert dismissWithClickedButtonIndex:0 animated:YES];
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar {
@@ -500,11 +519,9 @@ calloutAccessoryControlTapped:(UIControl *)control
         [keyboardToolbar setBackgroundImage:[[UIImage alloc] init] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
         keyboardToolbar.clipsToBounds = YES;
         
-        
         itemArray = [NSArray arrayWithObjects: @"All", @"Food", @"Event", @"Deal", nil];
         segControl = [[UISegmentedControl alloc] initWithItems:itemArray];
         segControl.selectedSegmentIndex = 0;
-
 
         [keyboardToolbar setItems: [NSArray arrayWithObject:[[UIBarButtonItem alloc] initWithCustomView:segControl]]];
     }

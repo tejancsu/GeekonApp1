@@ -15,6 +15,7 @@
 
 {
     CLLocationManager *locationManager;
+    UIAlertView *statusAlert;
 }
 
 
