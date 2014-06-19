@@ -30,6 +30,8 @@
 {
     [super viewDidLoad];
     
+    self.textView.hidden = YES;
+    
     self.mapView.delegate = self;
     
     // Ensure that you can view your own location in the map view.
@@ -45,6 +47,14 @@
     //Set some parameters for the location object.
     [locationManager setDistanceFilter:kCLDistanceFilterNone];
     [locationManager setDesiredAccuracy:kCLLocationAccuracyBest];
+    
+    UITapGestureRecognizer *tgr = [[UITapGestureRecognizer alloc]
+                                   initWithTarget:self action:@selector(handleMapViewTapGesture:)];
+    
+    tgr.numberOfTapsRequired = 1;
+    tgr.numberOfTouchesRequired = 1;
+    [self.mapView addGestureRecognizer:tgr];
+    
     
     [self.centerOnUserLocation addTarget:self action:@selector(centerOnUserLocationTapped:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -134,12 +144,14 @@
         NSDecimalNumber * lon = [key objectForKey:@"lon"];
         NSString * category = [key objectForKey:@"category"];
         NSString * text = [key objectForKey:@"text"];
-                
+        NSUInteger * count = [[key objectForKey:@"extra_text"] count];
+
+        NSString *subtitle = [NSString stringWithFormat:@"(%d checkins here)", count];
         CLLocationCoordinate2D coordinate;
         
         coordinate.latitude = [lat doubleValue];
         coordinate.longitude = [lon doubleValue];
-        myAnnotation *annotation = [[myAnnotation alloc] initWithCoordinate:coordinate subtitle:@"(5 checkins here)" title:text category:category];
+        myAnnotation *annotation = [[myAnnotation alloc] initWithCoordinate:coordinate subtitle:subtitle title:text category:category];
         [self.mapView addAnnotation:annotation];
     }
 
@@ -159,6 +171,13 @@
     [self setSearchButtonBackground:@"none"];
 //    [self fetchAndDisplayCheckins:@"all"];
     [self.mapView setRegion:viewRegion animated:YES];
+}
+
+-(void)handleMapViewTapGesture:(UIGestureRecognizer*)sender {
+    
+    NSLog(@"Released!");
+    self.textView.hidden = YES;
+
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(myAnnotation *)annotation {
@@ -228,6 +247,14 @@
 calloutAccessoryControlTapped:(UIControl *)control
 {
     NSLog(@"accessory button tapped for annotation %@", view.annotation);
+    CLLocationCoordinate2D coordinate = [[view annotation] coordinate];
+    coordinate.latitude = coordinate.latitude - self.mapView.region.span.latitudeDelta/ 5.0;
+    
+    MKCoordinateRegion viewRegion = MKCoordinateRegionMake(coordinate, self.mapView.region.span);
+    
+
+    [self.mapView setRegion:viewRegion animated:YES];
+    self.textView.hidden = NO;
 }
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id < MKOverlay >)overlay
@@ -338,14 +365,20 @@ calloutAccessoryControlTapped:(UIControl *)control
         NSDecimalNumber * lon = [key objectForKey:@"lon"];
         NSString * category = [key objectForKey:@"category"];
         NSString * text = [key objectForKey:@"text"];
+        NSString * count;
         
-        NSLog(@"lat: %@, lon: %@, category:%@, text:%@", lat, lon, category, text);
+        count = [NSString stringWithFormat:@"%d", [[key objectForKey:@"extra_text"] count]];
+
+        NSLog(@"lat: %@, lon: %@, category:%@, text:%@, count:%@", lat, lon, category, text, count);
         
         CLLocationCoordinate2D coordinate;
         
+        
+        NSString *subtitle = [NSString stringWithFormat:@"(%@ checkins here)", count];
+        
         coordinate.latitude = [lat doubleValue];
         coordinate.longitude = [lon doubleValue];
-        myAnnotation *annotation = [[myAnnotation alloc] initWithCoordinate:coordinate subtitle:@"(5 checkins here)" title:text category:category];
+        myAnnotation *annotation = [[myAnnotation alloc] initWithCoordinate:coordinate subtitle:subtitle title:text category:category];
         [self.mapView addAnnotation:annotation];
     }
     

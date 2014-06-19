@@ -23,6 +23,7 @@
 -(float)RandomFloatStart:(float)a end:(float)b;
 -(void)filterAnnotations:(NSArray *)placesToFilter;
 
+@property (weak, nonatomic) IBOutlet UITableView *textView;
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIButton *centerOnUserLocation;
 
