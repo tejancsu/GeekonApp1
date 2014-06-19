@@ -132,7 +132,7 @@
         } else if ([annotation.category isEqualToString:@"food_and_drinks"] ) {
             imageName = @"food_and_drinks";
             imageExtension = @"jpg";
-        } else if ([annotation.category isEqualToString:@"all"] ) {
+        } else {
             imageName = @"default";
         }
 
@@ -306,6 +306,16 @@
     NSString * location_lat = [location_lat_double stringValue];
     NSString * location_lon = [location_lon_double stringValue];
     
+    if([category isEqualToString:@"All"]){
+        category = [NSNull null];
+    }else if([category isEqualToString:@"Food"]){
+        category = @"food_and_drinks";
+    }else if([category isEqualToString:@"Event"]){
+        category = @"events";
+    }else if([category isEqualToString:@"Deal"]){
+        category = @"deals";
+    }
+    
     NSMutableString * query = [NSMutableString string];
     [query appendString:@"http://10.101.114.89:3000/checkins?"];
     [query appendString:@"lat="];
@@ -314,6 +324,12 @@
     [query appendString:location_lon];
     [query appendString:@"&text="];
     [query appendString:text];
+    
+    if([category isEqual: [NSNull null]]){
+    } else{
+        [query appendString:@"&category="];
+        [query appendString:category];
+    }
     
     NSLog(@"query: %@", query);
     
@@ -332,7 +348,10 @@
     NSDictionary *checkins = [[NSDictionary dictionaryWithJSONString:jsonString error:&theError] objectForKey:@"social_map"];
     NSLog(@"dictionary: %@", checkins);
     
-
+    for (id<MKAnnotation> annotation in self.mapView.annotations) {
+        [self.mapView removeAnnotation:annotation];
+    }
+    
     [self setSearchButtonBackground:@"all"];
     [self fetchAndDisplayCheckins:@"all"];
 
@@ -356,8 +375,11 @@
         [keyboardToolbar setBackgroundImage:[[UIImage alloc] init] forToolbarPosition:UIToolbarPositionAny barMetrics:UIBarMetricsDefault];
         keyboardToolbar.clipsToBounds = YES;
         
+        
         itemArray = [NSArray arrayWithObjects: @"All", @"Food", @"Event", @"Deal", nil];
         segControl = [[UISegmentedControl alloc] initWithItems:itemArray];
+        segControl.selectedSegmentIndex = 0;
+
 
         [keyboardToolbar setItems: [NSArray arrayWithObject:[[UIBarButtonItem alloc] initWithCustomView:segControl]]];
     }
