@@ -32,6 +32,11 @@
 		99ED32461952601900B8FB25 /* default.png in Resources */ = {isa = PBXBuildFile; fileRef = 99ED32421952601900B8FB25 /* default.png */; };
 		99ED32471952601900B8FB25 /* events.png in Resources */ = {isa = PBXBuildFile; fileRef = 99ED32431952601900B8FB25 /* events.png */; };
 		99ED32481952601900B8FB25 /* food_and_drinks.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 99ED32441952601900B8FB25 /* food_and_drinks.jpg */; };
+		99ED324C1953380E00B8FB25 /* default.png in Resources */ = {isa = PBXBuildFile; fileRef = 99ED324B1953380E00B8FB25 /* default.png */; };
+		99FED0EB1953417C00890611 /* current_location.png in Resources */ = {isa = PBXBuildFile; fileRef = 99FED0EA1953417C00890611 /* current_location.png */; };
+		99FED0EF19534DA400890611 /* fire_large.png in Resources */ = {isa = PBXBuildFile; fileRef = 99FED0EC19534DA400890611 /* fire_large.png */; };
+		99FED0F019534DA400890611 /* fire_med.png in Resources */ = {isa = PBXBuildFile; fileRef = 99FED0ED19534DA400890611 /* fire_med.png */; };
+		99FED0F119534DA400890611 /* fire_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 99FED0EE19534DA400890611 /* fire_small.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +85,11 @@
 		99ED32421952601900B8FB25 /* default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default.png; sourceTree = "<group>"; };
 		99ED32431952601900B8FB25 /* events.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = events.png; sourceTree = "<group>"; };
 		99ED32441952601900B8FB25 /* food_and_drinks.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = food_and_drinks.jpg; sourceTree = "<group>"; };
+		99ED324B1953380E00B8FB25 /* default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default.png; sourceTree = "<group>"; };
+		99FED0EA1953417C00890611 /* current_location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = current_location.png; path = images/current_location.png; sourceTree = "<group>"; };
+		99FED0EC19534DA400890611 /* fire_large.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fire_large.png; sourceTree = "<group>"; };
+		99FED0ED19534DA400890611 /* fire_med.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fire_med.png; sourceTree = "<group>"; };
+		99FED0EE19534DA400890611 /* fire_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fire_small.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,6 +121,7 @@
 		68899C06194F5E4E004188CD = {
 			isa = PBXGroup;
 			children = (
+				99FED0EA1953417C00890611 /* current_location.png */,
 				99ED32401952601900B8FB25 /* images */,
 				68899CDE19520ACF004188CD /* myAnnotation.h */,
 				68899CDF19520ACF004188CD /* myAnnotation.m */,
@@ -162,6 +173,7 @@
 		68899C19194F5E4E004188CD /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				99ED324B1953380E00B8FB25 /* default.png */,
 				68899C1A194F5E4E004188CD /* Geekon-SocialMap-Info.plist */,
 				68899C1B194F5E4E004188CD /* InfoPlist.strings */,
 				68899C1E194F5E4E004188CD /* main.m */,
@@ -206,6 +218,9 @@
 		99ED32401952601900B8FB25 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				99FED0EC19534DA400890611 /* fire_large.png */,
+				99FED0ED19534DA400890611 /* fire_med.png */,
+				99FED0EE19534DA400890611 /* fire_small.png */,
 				99ED32411952601900B8FB25 /* deals.png */,
 				99ED32421952601900B8FB25 /* default.png */,
 				99ED32431952601900B8FB25 /* events.png */,
@@ -294,10 +309,15 @@
 				99ED32471952601900B8FB25 /* events.png in Resources */,
 				68899C2E194F5E4F004188CD /* Images.xcassets in Resources */,
 				99ED32451952601900B8FB25 /* deals.png in Resources */,
+				99FED0EF19534DA400890611 /* fire_large.png in Resources */,
+				99FED0EB1953417C00890611 /* current_location.png in Resources */,
+				99FED0F119534DA400890611 /* fire_small.png in Resources */,
 				68899C26194F5E4F004188CD /* Main_iPhone.storyboard in Resources */,
 				68899C1D194F5E4E004188CD /* InfoPlist.strings in Resources */,
 				99ED32481952601900B8FB25 /* food_and_drinks.jpg in Resources */,
 				99ED32461952601900B8FB25 /* default.png in Resources */,
+				99FED0F019534DA400890611 /* fire_med.png in Resources */,
+				99ED324C1953380E00B8FB25 /* default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

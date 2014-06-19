@@ -10,6 +10,7 @@
 #import "CJSONDeserializer.h"
 #include "NSDictionary_JSONExtensions.h"
 #import "myAnnotation.h"
+#import <unistd.h>
 
 #define METERS_PER_MILE 1609.344
 
@@ -23,7 +24,9 @@
 
 @end
 
+
 @implementation ViewController
+
 
 - (void)viewDidLoad
 {
@@ -83,6 +86,8 @@
     // Remove the icon, which is located in the left view
     [UITextField appearanceWhenContainedIn:[UISearchBar class], nil].leftView = nil;
     self.postBar.searchTextPositionAdjustment = UIOffsetMake(10, 0);
+    UITextField *txfSearchField = [self.postBar valueForKey:@"_searchField"];
+    [txfSearchField setReturnKeyType:UIReturnKeyDone];
     
     // keyboardToolbar
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
@@ -145,8 +150,35 @@
         image.frame = CGRectMake(0,0,31,31);
         annotationView.leftCalloutAccessoryView = image;
         
+        NSString *small = [[NSBundle mainBundle] pathForResource:@"fire_small" ofType:@"png"];
+        NSString *med = [[NSBundle mainBundle] pathForResource:@"fire_med" ofType:@"png"];
+        NSString *large = [[NSBundle mainBundle] pathForResource:@"fire_large" ofType:@"png"];
+
+        UIImageView* animatedImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+        
+        animatedImageView.frame = CGRectMake(0,0,20,20);
+        
+        animatedImageView.animationImages = [NSArray arrayWithObjects:
+                                             [UIImage imageWithContentsOfFile:small],
+                                             [UIImage imageWithContentsOfFile:med],
+                                             [UIImage imageWithContentsOfFile:large], nil];
+        animatedImageView.animationDuration = 1.0f;
+        animatedImageView.animationRepeatCount = 0;
+        [animatedImageView startAnimating];
+//        annotationView.rightCalloutAccessoryView = animatedImageView;
+        
+        annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+
+        
         return annotationView;
     }
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view
+calloutAccessoryControlTapped:(UIControl *)control
+{
+    NSLog(@"accessory button tapped for annotation %@", view.annotation);
+    
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
@@ -227,7 +259,7 @@
         
         coordinate.latitude = [lat doubleValue];
         coordinate.longitude = [lon doubleValue];
-        myAnnotation *annotation = [[myAnnotation alloc] initWithCoordinate:coordinate subtitle:@"" title:text category:category];
+        myAnnotation *annotation = [[myAnnotation alloc] initWithCoordinate:coordinate subtitle:@"(5 checkins here)" title:text category:category];
         [self.mapView addAnnotation:annotation];
     }
     
