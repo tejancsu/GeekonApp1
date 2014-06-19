@@ -113,26 +113,41 @@
         annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
         
         NSString * imageName;
-        
+        NSString * imageExtension = @"png";
+
         if ([annotation.category isEqual: [NSNull null]]) {
-            imageName = @"default.png";
+            imageName = @"default";
         } else if ([annotation.category isEqualToString:@"deals"] ) {
-            imageName = @"deals.png";
+            imageName = @"deals";
         } else if ([annotation.category isEqualToString:@"events"] ) {
-            imageName = @"events.png";
+            imageName = @"events";
         } else if ([annotation.category isEqualToString:@"food_and_drinks"] ) {
-            imageName = @"food_and_drinks.png";
+            imageName = @"food_and_drinks";
+            imageExtension = @"jpg";
         } else if ([annotation.category isEqualToString:@"all"] ) {
-            imageName = @"default.png";
+            imageName = @"default";
         }
 
+        NSString *imageFilePath = [[NSBundle mainBundle] pathForResource:imageName ofType:imageExtension];
+        
+        UIImage *imageObject = [UIImage imageWithContentsOfFile:imageFilePath];
+
         // Add a custom image to the left side of the callout.
-        UIImageView *image = [[UIImageView alloc] initWithImage:[UIImage imageNamed:imageName]];
+        UIImageView *image = [[UIImageView alloc] initWithImage:imageObject];
+        image.frame = CGRectMake(0,0,31,31);
         annotationView.leftCalloutAccessoryView = image;
+        
         return annotationView;
     }
 
 }
+
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
+{
+
+    //loading an image
+}
+
 
 - (void) centerOnUserLocationTapped:(id) button {
     MKUserLocation *userLocation = self.mapView.userLocation;

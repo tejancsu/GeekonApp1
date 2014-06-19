@@ -28,6 +28,10 @@
 		68899CDA195120D8004188CD /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 68899CD7195120D8004188CD /* NSDictionary_JSONExtensions.m */; };
 		68899CE019520ACF004188CD /* myAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 68899CDF19520ACF004188CD /* myAnnotation.m */; };
 		99ED323F19521EF100B8FB25 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99ED323E19521EF100B8FB25 /* CoreLocation.framework */; };
+		99ED32451952601900B8FB25 /* deals.png in Resources */ = {isa = PBXBuildFile; fileRef = 99ED32411952601900B8FB25 /* deals.png */; };
+		99ED32461952601900B8FB25 /* default.png in Resources */ = {isa = PBXBuildFile; fileRef = 99ED32421952601900B8FB25 /* default.png */; };
+		99ED32471952601900B8FB25 /* events.png in Resources */ = {isa = PBXBuildFile; fileRef = 99ED32431952601900B8FB25 /* events.png */; };
+		99ED32481952601900B8FB25 /* food_and_drinks.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 99ED32441952601900B8FB25 /* food_and_drinks.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +76,10 @@
 		68899CDE19520ACF004188CD /* myAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myAnnotation.h; sourceTree = "<group>"; };
 		68899CDF19520ACF004188CD /* myAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myAnnotation.m; sourceTree = "<group>"; };
 		99ED323E19521EF100B8FB25 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		99ED32411952601900B8FB25 /* deals.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = deals.png; sourceTree = "<group>"; };
+		99ED32421952601900B8FB25 /* default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = default.png; sourceTree = "<group>"; };
+		99ED32431952601900B8FB25 /* events.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = events.png; sourceTree = "<group>"; };
+		99ED32441952601900B8FB25 /* food_and_drinks.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = food_and_drinks.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +111,7 @@
 		68899C06194F5E4E004188CD = {
 			isa = PBXGroup;
 			children = (
+				99ED32401952601900B8FB25 /* images */,
 				68899CDE19520ACF004188CD /* myAnnotation.h */,
 				68899CDF19520ACF004188CD /* myAnnotation.m */,
 				68899CD0195120D8004188CD /* Source */,
@@ -194,6 +203,17 @@
 			path = "Geekon-SocialMap/Source";
 			sourceTree = "<group>";
 		};
+		99ED32401952601900B8FB25 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				99ED32411952601900B8FB25 /* deals.png */,
+				99ED32421952601900B8FB25 /* default.png */,
+				99ED32431952601900B8FB25 /* events.png */,
+				99ED32441952601900B8FB25 /* food_and_drinks.jpg */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -271,9 +291,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				68899C29194F5E4F004188CD /* Main_iPad.storyboard in Resources */,
+				99ED32471952601900B8FB25 /* events.png in Resources */,
 				68899C2E194F5E4F004188CD /* Images.xcassets in Resources */,
+				99ED32451952601900B8FB25 /* deals.png in Resources */,
 				68899C26194F5E4F004188CD /* Main_iPhone.storyboard in Resources */,
 				68899C1D194F5E4E004188CD /* InfoPlist.strings in Resources */,
+				99ED32481952601900B8FB25 /* food_and_drinks.jpg in Resources */,
+				99ED32461952601900B8FB25 /* default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
