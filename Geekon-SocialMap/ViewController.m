@@ -331,7 +331,7 @@ calloutAccessoryControlTapped:(UIControl *)control
     NSString * distance = [distance_double stringValue];
     
     NSMutableString * query = [NSMutableString string];
-    [query appendString:@"http://10.101.114.89:3000/checkins?"];
+    [query appendString:@"http://localhost:3000/checkins?"];
     [query appendString:@"lat="];
     [query appendString:center_lat];
     [query appendString:@"&lon="];
@@ -467,7 +467,7 @@ calloutAccessoryControlTapped:(UIControl *)control
     }
     
     NSMutableString * query = [NSMutableString string];
-    [query appendString:@"http://10.101.114.89:3000/checkins?"];
+    [query appendString:@"http://localhost:3000/checkins?"];
     [query appendString:@"lat="];
     [query appendString:location_lat];
     [query appendString:@"&lon="];
