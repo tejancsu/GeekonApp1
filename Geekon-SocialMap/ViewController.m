@@ -245,10 +245,7 @@ calloutAccessoryControlTapped:(UIControl *)control
 
 -(void)showRoute:(MKDirectionsResponse *)response
 {
-    for (MKRoute *route in response.routes)
-    {
-        [self.mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
-    }
+    [self.mapView addOverlay:[[response.routes objectAtIndex:0] polyline] level:MKOverlayLevelAboveRoads];
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view
